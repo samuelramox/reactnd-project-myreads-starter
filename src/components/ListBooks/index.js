@@ -33,7 +33,14 @@ class ListBooks extends Component {
           </If>
         </div>
         <div className="open-search">
-          <Link to="/search">Add a book</Link>
+          <Link
+            to={{
+              pathname: '/search',
+              state: { bookList }
+            }}
+          >
+            Add a book
+          </Link>
         </div>
       </div>
     );
