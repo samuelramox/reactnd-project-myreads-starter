@@ -5,9 +5,12 @@ import If from '../If';
 import * as BooksAPI from '../../BooksAPI';
 
 class ListBooks extends Component {
-  state = {
-    bookList: {}
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      bookList: {}
+    };
+  }
 
   componentDidMount = () => {
     this.getBooks(BooksAPI.getAll());
@@ -22,8 +25,7 @@ class ListBooks extends Component {
 
   handleChange = (e, book) => {
     const { value } = e.target;
-    const { bookList } = this.state;
-    BooksAPI.update(book, value).then(res => this.updateBooks(value, book));
+    BooksAPI.update(book, value).then(() => this.updateBooks(value, book));
   };
 
   updateBooks = (value, book) => {
@@ -46,6 +48,7 @@ class ListBooks extends Component {
 
   render() {
     const { bookList } = this.state;
+
     return (
       <div className="list-books">
         <div className="list-books-title">

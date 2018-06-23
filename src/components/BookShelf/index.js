@@ -21,6 +21,7 @@ class BookShelf extends PureComponent {
 
   render() {
     const { books, handleChange } = this.props;
+
     return (
       <div>
         {this.getShelves(books).map((shelf, index) => (
