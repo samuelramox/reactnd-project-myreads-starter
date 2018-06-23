@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelfRow from '../BookShelfRow';
 import { search } from '../../BooksAPI';
+import If from '../If';
 
 class Search extends PureComponent {
   state = {
@@ -24,13 +25,14 @@ class Search extends PureComponent {
 
   render() {
     const { books } = this.state;
+    const { handleChange } = this.props.location;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
           <Link to="/" className="close-search">
             Close
           </Link>
-
           <div className="search-books-input-wrapper">
             <input
               type="text"
@@ -39,8 +41,18 @@ class Search extends PureComponent {
             />
           </div>
         </div>
-
-        <BookShelfRow shelf={false} books={books} />
+        <If test={books.length > 0}>
+          <BookShelfRow
+            shelf={false}
+            books={books}
+            handleChange={handleChange}
+          />
+        </If>
+        <If test={books.length === undefined}>
+          <div className="search-box">
+            <h1 className="search-message">No result for this search</h1>
+          </div>
+        </If>
       </div>
     );
   }
