@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import BookShelfRow from '../BookShelfRow';
 
 class BookShelf extends PureComponent {
-  getShelfs = books =>
+  getShelves = books =>
     books
       .reduce((acc, cur) => {
         if (acc === undefined) {
@@ -20,14 +20,15 @@ class BookShelf extends PureComponent {
   filterByShelf = (books, shelf) => books.filter(book => book.shelf === shelf);
 
   render() {
-    const { books } = this.props;
+    const { books, handleChange } = this.props;
     return (
       <div>
-        {this.getShelfs(books).map((shelf, index) => (
+        {this.getShelves(books).map((shelf, index) => (
           <BookShelfRow
             key={`${shelf}${index}`}
             books={this.filterByShelf(books, shelf)}
             shelf={shelf}
+            handleChange={handleChange}
           />
         ))}
       </div>
