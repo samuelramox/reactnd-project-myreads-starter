@@ -20,6 +20,12 @@ class ListBooks extends Component {
       });
     });
 
+  handleChange = (e, book) => {
+    const { value } = e.target;
+    const { bookList } = this.state;
+    BooksAPI.update(book, value).then(res => this.updateBooks(value, book));
+  };
+
   render() {
     const { bookList } = this.state;
     return (
@@ -29,13 +35,14 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <If test={bookList.length > 0}>
-            <BookShelf books={bookList} />
+            <BookShelf books={bookList} handleChange={this.handleChange} />
           </If>
         </div>
         <div className="open-search">
           <Link
             to={{
               pathname: '/search',
+              handleChange: this.handleChange,
               state: { bookList }
             }}
           >
